@@ -1,0 +1,130 @@
+/* Gaya Umum */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #563A9C;
+    padding: 20px 50px; 
+}
+
+.navbar .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin: 0 20px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar ul li a.active {
+    color: #ff7043; 
+}
+
+.navbar ul li .login-btn {
+    background-color: #ff7043; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.hero {
+    background-image: url('hero.jpg'); 
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    position: relative; /* Required for positioning the overlay */
+    z-index: 1; /* Ensure content stays on top */
+    overflow: hidden; /* Prevent overlay overflow */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    z-index: -1; /* Place behind the content */
+}
+
+.hero-content {
+    font-family: 'Poppins', sans-serif;
+    margin-left: 100px;
+    margin-top: 200px;
+}
+
+.hero-content h1 {
+    font-size: 80px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+}
+
+
+.hero-content p {
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.hero-content button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff7043;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.players {
+    background-color: #563A9C;
+    color:#fff;
+    text-align: center;
+    justify-content: center;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.card-player h1 {
+    font-size: 64px;
+    font-weight: bold;
+    margin: 40px 0;
+    text-align: center;
+}
+
