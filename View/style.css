@@ -7,6 +7,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: #fff;
 }
 
 .navbar {
@@ -54,6 +55,7 @@ body {
     font-size: 16px;
     text-decoration: none;
 }
+
 
 .hero {
     background-image: url('../Assets/hero.jpg'); 
@@ -194,4 +196,36 @@ footer {
     color: #fff;
     text-align: center;
     padding: 20px;
+}
+
+.training {
+    background-color: #563A9C;
+    margin: 60px 80px 40px 80px;
+    padding: 20px;
+    height: 100vh;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.about-training h1 {
+    color:#ff7043;
+    font-size:50px;
+    text-align: center;
+    margin-top:30px;
+    margin-bottom: 30px;
+}
+.about-training p{
+    color:#fff;
+    font-size:24px;
+    text-align: center;
+    margin-bottom:10px;
+    font-weight:600;
+}
+.training-images{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    gap: 60px;
+    padding:40px 0px 40px 0px;
+    border-bottom:2px solid #ff7043;
 }

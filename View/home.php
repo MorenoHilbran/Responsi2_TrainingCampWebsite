@@ -10,7 +10,7 @@
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="index.php" class="active">Home</a></li>
+            <li><a href="home.php" class="active">Home</a></li>
             <li><a href="Training.php">Training</a></li>
             <li><a href="TeamProfile.php">Team Profile</a></li>
             <li><a href="login.php" class="login-btn">Login</a></li>
@@ -33,7 +33,7 @@
     <div class="cards-container">
         <h1>Top Players</h1>
         <div class="cards-wrapper">
-            <!-- Player Card 1 -->
+          
             <div class="player-card">
                 <img src="../Assets/StevenAdam.jpg" alt="Steven Adams">
                 <div class="description">
@@ -44,7 +44,7 @@
                 </div>
             </div>
 
-            <!-- Player Card 2 -->
+            
             <div class="player-card">
                 <img src="../Assets/BamAdebayo.jpg" alt="Bam Adebayo">
                 <div class="description">
@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <!-- Player Card 3 -->
+           
             <div class="player-card">
                 <img src="../Assets/StephCurry.jpg" alt="Stephen Curry">
                 <div class="description">
