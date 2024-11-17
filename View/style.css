@@ -56,15 +56,15 @@ body {
 }
 
 .hero {
-    background-image: url('hero.jpg'); 
+    background-image: url('../Assets/hero.jpg'); 
     background-size: cover;
     background-position: center;
     color: #fff;
     height: 100vh;
     display: flex;
-    position: relative; /* Required for positioning the overlay */
-    z-index: 1; /* Ensure content stays on top */
-    overflow: hidden; /* Prevent overlay overflow */
+    position: relative; 
+    z-index: 1; 
+    overflow: hidden;
 }
 
 .hero::before {
@@ -109,22 +109,89 @@ body {
     font-size: 16px;
     font-weight: bold;
 }
-.players {
+.cards-container {
     background-color: #563A9C;
-    color:#fff;
     text-align: center;
-    justify-content: center;
+    padding: 20px;
     height: 100vh;
     display: flex;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
 }
 
-.card-player h1 {
-    font-size: 64px;
-    font-weight: bold;
-    margin: 40px 0;
+.cards-container h1 {
+    color: #fff;
+    font-size: 70px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.player-card {
+    background-color: #D86B3D; 
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    height: 506px;
+    width: 339px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.player-card img {
+    width:auto;
+    height: 70%;
+    object-fit: cover;
+    margin-top:40px;
+}
+
+.description {
+    width: 100%;
+    height:110px;
+    background-color: #ff7043;
+    text-align: left;
+}
+.description h3 {
+    margin-top:10px;
+    font-size: 22px;
+}
+img.flag-icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.profile {
+    background-color:#fff;
+    height:100vh;
+    display:flex;
+    flex-direction:row;
+    padding:100px;
+    align-items: center;
+}
+
+.logo img {
+    margin-left:150px;
+    margin-right:150px;
+}
+.information h2{
+    font-size:35px;
+}
+.information p{
+    font-size:20px;
+    margin-top:40px;
+}
+
+footer {
+    background-color: #563A9C;
+    color: #fff;
     text-align: center;
+    padding: 20px;
 }
-
