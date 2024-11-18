@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #563A9C;
+    padding: 20px 50px; 
+}
+
+.navbar .logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin: 0 20px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar ul li a.active {
+    color: #ff7043; 
+}
+
+.navbar ul li .login-btn {
+    background-color: #ff7043; 
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.header-team .line {
+    display: inline-block;
+    width: 150px; 
+    height: 2px; 
+    background-color: #FF6D39; 
+    margin-right: 10px; 
+    margin-top:1rem;
+}
+
+h1 {
+    text-align: left;
+    color: #ff7043;
+    font-size: 64px;
+    font-weight: bold;
+    margin-top:1rem;
+    margin-right:60px;
+}
+
+.team-profile {
+    padding: 2rem;
+    text-align: center;
+}
+
+.header-team {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    border-radius: 25px;
+}
+
+.search-bar input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    width: 520px;
+}
+.search-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.card-container {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 3rem 12rem; 
+    margin: 0 auto;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    overflow: hidden;
+}
+
+
+.card {
+    background-color: #F4F4F4;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    width:339px;
+    height: 500px;
+
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
