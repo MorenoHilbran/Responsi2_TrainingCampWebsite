@@ -59,5 +59,10 @@
     </div>
 </section>
 <script src="../Scripts/teamprofile.js"></script>
+
+
+    <footer>
+        <p>&copy; 2024 NBA Training Course. All rights reserved.</p>
+    </footer>
 </body>
 </html>
