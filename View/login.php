@@ -6,19 +6,27 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     include("connect.php");
 
-   
-    $result = mysqli_query($connect, "SELECT * FROM user WHERE username = '$username' AND password = '$password'");
-
-   
-    if (mysqli_num_rows($result) == 1) {
-        
+    // Cek di tabel admin
+    $result_admin = mysqli_query($connect, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
+    
+    if (mysqli_num_rows($result_admin) == 1) {
         $_SESSION['username'] = $username;
-        $berhasil = "Berhasil Login";
+        $berhasil = "Berhasil Login sebagai Admin";
         echo "<script>alert('$berhasil');</script>";
-        header("Location: camp.php"); 
+        header("Location: TrainingAdmin.php");
+        exit;
+    }
+
+    // Cek di tabel user
+    $result_user = mysqli_query($connect, "SELECT * FROM user WHERE username = '$username' AND password = '$password'");
+    
+    if (mysqli_num_rows($result_user) == 1) {
+        $_SESSION['username'] = $username;
+        $berhasil = "Berhasil Login sebagai User";
+        echo "<script>alert('$berhasil');</script>";
+        header("Location: Training.php");
         exit;
     } else {
-        
         $error = "Username atau password salah.";
     }
 }

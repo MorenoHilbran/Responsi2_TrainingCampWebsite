@@ -3,17 +3,18 @@ session_start();
 
     if (isset($_POST['Submit'])) {
         $username = $_POST['username'];
-        $password = $_POST['password'];
         $email = $_POST['email'];
+        $password = $_POST['password'];
         include("connect.php");
     
-        $result = mysqli_query($connect, "INSERT INTO user(username,email, password) VALUES ('$username','$email', '$password')");
+        $result = mysqli_query($connect, "INSERT INTO user(username, email, password) VALUES ('$username', '$email', '$password')");
         if ($result) {
             header("Location: login.php");
         } else {
             echo "Registrasi gagal: " . mysqli_error($connect);
         }
-            
+        
+        
     }
 ?>
 

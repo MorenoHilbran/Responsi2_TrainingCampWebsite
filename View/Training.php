@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit;
+}
+
+// Koneksi ke database
+$connect = new mysqli("localhost", "root", "", "abn");
+
+if ($connect->connect_error) {
+    die("Koneksi gagal: " . $connect    ->connect_error);
+}
+
+// Ambil data dari tabel jadwal
+$sql = "SELECT * FROM jadwal";
+$result = $connect  ->query(  $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,5 +52,19 @@
             </div>
 
         </section>
+
+        <?php if ($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <div class="card" style="background-image: url('<?php echo $row['gambar']; ?>');">
+                    <h2><?php echo $row['nama_latihan']; ?></h2>
+                    <p><?php echo $row['deskripsi']; ?></p>
+                    <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
+                    <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
+                    <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Tidak ada jadwal tersedia.</p>
+        <?php endif; ?>
 </body>
 </html>
