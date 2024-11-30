@@ -1,19 +1,13 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
-
-// Koneksi ke database
 $connect = new mysqli("localhost", "root", "", "abn");
 
 if ($connect->connect_error) {
     die("Koneksi gagal: " . $connect    ->connect_error);
 }
 
-// Ambil data dari tabel jadwal
+
 $sql = "SELECT * FROM jadwal";
 $result = $connect  ->query(  $sql);
 ?>
@@ -25,6 +19,52 @@ $result = $connect  ->query(  $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+    .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+    }
+    
+    .card {
+    background-color: #FF7134;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    display: flex;
+    }
+
+    .card-image {
+    width:300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    }
+
+    .card-content {
+    flex: 1;
+    padding: 16px;
+    text-align: left;
+    margin-left: 20px;
+    margin-top:10px;
+    }
+
+    .card-content h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+    }
+
+    .card-content p {
+    font-size: 15px;
+    margin: 4px 0;
+    }
+
+    </style>
 </head>
 <body>
     <header class="navbar">
@@ -50,21 +90,27 @@ $result = $connect  ->query(  $sql);
             <img src="../Assets/Training2.png" alt="Training">
             <img src="../Assets/Training3.png" alt="Training">
             </div>
-
-        </section>
-
-        <?php if ($result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                <div class="card" style="background-image: url('<?php echo $row['gambar']; ?>');">
+            
+            <?php if ($result->num_rows > 0): ?>
+    <div class="card-container">
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <div class="card">
+                <img class="card-image" src="<?php echo $row['gambar']; ?>" alt="<?php echo $row['nama_latihan']; ?>">
+                <div class="card-content">
                     <h2><?php echo $row['nama_latihan']; ?></h2>
                     <p><?php echo $row['deskripsi']; ?></p>
                     <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                     <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                     <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
                 </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>Tidak ada jadwal tersedia.</p>
-        <?php endif; ?>
+            </div>
+        <?php endwhile; ?>
+    </div>
+<?php else: ?>
+    <p>Tidak ada jadwal tersedia.</p>
+<?php endif; ?>
+
+            
+        </section>
 </body>
 </html>

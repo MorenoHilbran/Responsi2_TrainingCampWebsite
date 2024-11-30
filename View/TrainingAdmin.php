@@ -155,6 +155,64 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 20px;
+            }
+            
+        .card {
+            background-color: #FF7134;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            display: flex;
+            }
+
+        .card-image {
+            width:300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            }
+
+            .card-content {
+            flex: 1;
+            padding: 16px;
+            text-align: left;
+            margin-left: 20px;
+            margin-top:10px;
+            }
+
+            .card-content h2 {
+            font-size: 25px;
+            margin-bottom: 8px;
+            }
+
+            .card-content p {
+            font-size: 15px;
+            margin: 4px 0;
+            }
+
+            .btn-admin {
+                background-color: #FF7134;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 24px;
+                margin: 4px 2px;
+                margin-top: 20px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
     </style>
 </head>
 <body>
@@ -181,10 +239,28 @@
             <img src="../Assets/Training2.png" alt="Training">
             <img src="../Assets/Training3.png" alt="Training">
         </div>
+        <?php if ($result->num_rows > 0): ?>
+        <div class="card-container">
+           <?php while ($row = $result->fetch_assoc()): ?>
+               <div class="card">
+                   <img class="card-image" src="<?php echo $row['gambar']; ?>" alt="<?php echo $row['nama_latihan']; ?>">
+                   <div class="card-content">
+                       <h2><?php echo $row['nama_latihan']; ?></h2>
+                       <p><?php echo $row['deskripsi']; ?></p>
+                       <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
+                       <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
+                       <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
+                   </div>
+               </div>
+           <?php endwhile; ?>
+        </div>
+        <?php else: ?>
+        <p>Tidak ada jadwal tersedia.</p>
+        <?php endif; ?>
+        <button id="myBtn" class="btn-admin">+</button>
     </section>
 
     <!-- Tombol untuk membuka pop-up -->
-    <button id="myBtn">+</button>
 
     <!-- Pop-up form -->
     <div id="myModal" class="modal" style="<?php echo isset($_GET['edit']) ? 'display:block;' : 'display:none;'; ?>">
@@ -250,23 +326,6 @@ if (!$result) {
     die("Query Error: " . $connect->error);
 }
 ?>
-
-<?php if ($result->num_rows > 0): ?>
-    <?php while ($row = $result->fetch_assoc()): ?>
-        <?php $backgroundImage = $row['gambar'] ? $row['gambar'] : 'default-image.jpg'; ?>
-        <div class="card" style="background-image: url('<?php echo $backgroundImage; ?>');">
-            <h2><?php echo $row['nama_latihan']; ?></h2>
-            <p><?php echo $row['deskripsi']; ?></p>
-            <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
-            <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
-            <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
-            <a href="TrainingAdmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-edit">Edit</a>
-            <a href="TrainingAdmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
-        </div>
-    <?php endwhile; ?>
-<?php else: ?>
-    <p>Tidak ada jadwal tersedia.</p>
-<?php endif; ?>
 
 </body>
 </html>
