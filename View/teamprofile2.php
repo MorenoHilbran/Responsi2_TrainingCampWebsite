@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Profile</title>
     <link rel="stylesheet" href="styleteam.css">
+    <style>
+         .iconprofile {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+  
+    }
+    </style>
+    </style>
 </head>
 <body>
 <header class="navbar">
     <div class="logo">NBA</div>
     <ul>
-        <li><a href="home.php">Home</a></li>
-        <li><a href="Training.php">Training</a></li>
-        <li><a href="TeamProfile.php" class="active">Team Profile</a></li>
-        <li><a href="login.php" class="login-btn">Login</a></li>
+        <li><a href="home2.php">Home</a></li>
+        <li><a href="Training2.php">Training</a></li>
+        <li><a href="TeamProfile2.php" class="active">Team Profile</a></li>
+        <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
     </ul>
 </header>
 <section class="team-profile">

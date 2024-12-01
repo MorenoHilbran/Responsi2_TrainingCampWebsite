@@ -122,23 +122,22 @@
     <title>Training</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* CSS untuk pop-up */
         .modal {
-            display: none; /* Sembunyikan pop-up secara default */
+            display: none; 
             position: fixed;
             z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
+            
             background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
+           
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 5% auto;
+            margin: 2% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
@@ -168,7 +167,7 @@
             border-radius: 12px;
             overflow: hidden;
             width: 100%;
-            max-width: 1300px;
+            max-width: 1400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             font-family: Arial, sans-serif;
             display: flex;
@@ -176,43 +175,137 @@
 
         .card-image {
             width:300px;
-            height: 200px;
+            height: 210px;
             object-fit: cover;
             border-radius: 12px;
             }
 
-            .card-content {
+        .card-content {
             flex: 1;
             padding: 16px;
             text-align: left;
             margin-left: 20px;
             margin-top:10px;
-            }
+        }
 
-            .card-content h2 {
+        .card-content h2 {
             font-size: 25px;
             margin-bottom: 8px;
-            }
+        }
 
-            .card-content p {
+        .card-content p {
             font-size: 15px;
             margin: 4px 0;
-            }
+        }
 
-            .btn-admin {
-                background-color: #FF7134;
-                border: none;
-                color: white;
-                padding: 10px 20px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 24px;
-                margin: 4px 2px;
-                margin-top: 20px;
-                cursor: pointer;
-                border-radius: 5px;
+        .btn-admin {
+            background-color: #FF7134;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 24px;
+            margin: 4px 2px;
+            margin-top: 20px;                
+            cursor: pointer;
+            border-radius: 5px;
+        }
+            
+        .btn-daftar{
+            background-color: #f7dc6f;
+            float:right;                
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-right:30px;
+            color: white;                
+            transform: translateY(-50%);
+            text-decoration: none;
             }
+        .btn-daftar:hover{
+            background-color: #e6b313;
+            cursor: pointer;
+            
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
+
+       
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px; 
+            border-radius: 8px;
+        }
+
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+       
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        textarea,
+        input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+
+       .submit {
+           background-color: #FF7134;
+           color: #fff;
+           padding: 10px 20px;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           margin-top: 10px;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           transition: background-color 0.3s ease-in-out;
+       }
+       .submit:hover {
+           background-color: #FF8A65;
+       }
+       .iconprofile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -222,7 +315,7 @@
             <li><a href="home.php">Home</a></li>
             <li><a href="Training.php" class="active">Training</a></li>
             <li><a href="TeamProfile.php">Team Profile</a></li>
-            <li><a href="login.php" class="login-btn">Login</a></li>
+            <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
 
@@ -250,6 +343,8 @@
                        <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                        <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                        <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
+                       <a href="detail.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Daftar Sekarang</a>
+
                    </div>
                </div>
            <?php endwhile; ?>
@@ -265,6 +360,7 @@
     <!-- Pop-up form -->
     <div id="myModal" class="modal" style="<?php echo isset($_GET['edit']) ? 'display:block;' : 'display:none;'; ?>">
         <div class="modal-content">
+            <h1>Form Menambah Jadwal Latihan</h1>
             <span class="close">&times;</span>
             <form action="TrainingAdmin.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -289,6 +385,7 @@
                     <img src="<?php echo $gambar; ?>" alt="Gambar" width="100"><br>
                     <input type="hidden" name="existing_gambar" value="<?php echo $gambar; ?>">
                 <?php endif; ?>
+                <button type="submit" name="<?php echo $id ? 'update' : 'create'; ?>">
 
                 <button type="submit" name="<?php echo $id ? 'update' : 'create'; ?>">
                     <?php echo $id ? 'Update' : 'Tambah'; ?>

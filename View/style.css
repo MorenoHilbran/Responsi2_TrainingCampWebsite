@@ -38,6 +38,7 @@ body {
     font-size: 18px;
     font-weight: normal;
     font-family: 'Poppins', sans-serif;
+    align-items: center;
 }
 
 .navbar ul li a.active {

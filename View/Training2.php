@@ -12,6 +12,7 @@ $sql = "SELECT * FROM jadwal";
 $result = $connect  ->query(  $sql);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,16 +80,21 @@ $result = $connect  ->query(  $sql);
         background-color: #e6b313;
         cursor: pointer;
     }
+    .iconprofile {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
     </style>
 </head>
 <body>
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="Training.php"class="active">Training</a></li>
-            <li><a href="TeamProfile.php">Team Profile</a></li>
-            <li><a href="login.php" class="login-btn">Login</a></li>
+            <li><a href="home2.php">Home</a></li>
+            <li><a href="Training2.php" class="active">Training</a></li>
+            <li><a href="TeamProfile2.php">Team Profile</a></li>
+            <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
 
@@ -117,7 +123,8 @@ $result = $connect  ->query(  $sql);
                     <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                     <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                     <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
-                    <a href="login.php" class="btn-daftar">Daftar Sekarang</a>
+                    <a href="detail.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Daftar Sekarang</a>
+
                 </div>
             </div>
         <?php endwhile; ?>

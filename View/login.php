@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
         $_SESSION['username'] = $username;
         $berhasil = "Berhasil Login sebagai User";
         echo "<script>alert('$berhasil');</script>";
-        header("Location: Training.php");
+        header("Location: Training2.php");
         exit;
     } else {
         $error = "Username atau password salah.";
