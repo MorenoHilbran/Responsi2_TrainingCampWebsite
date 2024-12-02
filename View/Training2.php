@@ -7,6 +7,12 @@ if ($connect->connect_error) {
     die("Koneksi gagal: " . $connect    ->connect_error);
 }
 
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit;
+}
+
 
 $sql = "SELECT * FROM jadwal";
 $result = $connect  ->query(  $sql);

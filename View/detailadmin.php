@@ -1,20 +1,13 @@
 <?php
-session_start();
-require 'connect.php';
-
-// Periksa apakah pengguna sudah login
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-    exit;
-}
+require 'connect.php'; 
 
 if (isset($_GET['id_jadwal'])) {
-    $id_jadwal = intval($_GET['id_jadwal']); // Ambil parameter ID dari URL
+    $id = intval($_GET['id_jadwal']); // Ambil parameter ID dari URL
 
     // Gunakan prepared statement untuk keamanan
     $sql = "SELECT * FROM jadwal WHERE id_jadwal = ?";
     $stmt = $connect->prepare($sql);
-    $stmt->bind_param("i", $id_jadwal);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -25,73 +18,18 @@ if (isset($_GET['id_jadwal'])) {
         echo "Jadwal tidak ditemukan.";
         exit;
     }
+
+    // Query untuk mengambil data dari tabel detailcamp berdasarkan id_jadwal
+    $sql_detailcamp = "SELECT username, email FROM detailcamp WHERE id_jadwal = ?";
+    $stmt_detailcamp = $connect->prepare($sql_detailcamp);
+    $stmt_detailcamp->bind_param("i", $id);
+    $stmt_detailcamp->execute();
+    $result_detailcamp = $stmt_detailcamp->get_result();
 } else {
     echo "ID tidak diberikan.";
     exit;
 }
-
-// Variabel untuk status pendaftaran
-$terdaftar = false;
-$button_text = "Ikuti Latihan";
-$button_disabled = false;
-$button_color = "#FE7C45"; // Warna default tombol
-
-// Tangani pengecekan status pendaftaran saat pertama kali mengakses halaman
-$username = $_SESSION['username']; // Ambil username pengguna dari session
-
-// Cari id_user dan email berdasarkan username di tabel user
-$user_query = "SELECT id_user, email FROM user WHERE username = ?";
-$user_stmt = $connect->prepare($user_query);
-$user_stmt->bind_param("s", $username);
-$user_stmt->execute();
-$user_result = $user_stmt->get_result();
-
-if ($user_result->num_rows > 0) {
-    $user_row = $user_result->fetch_assoc();
-    $id_user = $user_row['id_user']; // Ambil id_user dari hasil query
-    $email = $user_row['email'];     // Ambil email dari hasil query
-
-    // Cek apakah pengguna sudah terdaftar untuk latihan ini
-    $check_query = "SELECT * FROM detailcamp WHERE id_jadwal = ? AND username = ?";
-    $check_stmt = $connect->prepare($check_query);
-    $check_stmt->bind_param("is", $id_jadwal, $username);
-    $check_stmt->execute();
-    $check_result = $check_stmt->get_result();
-
-    if ($check_result->num_rows > 0) {
-        // Jika sudah terdaftar, atur status tombol menjadi "Anda sudah terdaftar"
-        $terdaftar = true;
-        $button_text = "Anda sudah terdaftar";
-        $button_disabled = true; // Nonaktifkan tombol
-        $button_color = "#45FE7C"; // Ganti warna tombol setelah berhasil
-    }
-}
-
-// Tangani klik tombol "Ikuti Latihan"
-if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
-    // Masukkan data ke tabel detailcamp
-    $insert_sql = "INSERT INTO detailcamp (id_jadwal, id_user, username, email) VALUES (?, ?, ?, ?)";
-    $insert_stmt = $connect->prepare($insert_sql);
-    $insert_stmt->bind_param("iiss", $id_jadwal, $id_user, $username, $email);
-
-    if ($insert_stmt->execute()) {
-        // Jika berhasil mendaftar, atur status tombol menjadi "Anda sudah terdaftar"
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var button = document.querySelector('.btn-daftar');
-                    button.textContent = 'Anda sudah terdaftar';
-                    button.disabled = true; // Nonaktifkan tombol setelah pendaftaran berhasil
-                    button.style.backgroundColor = '#45FE7C'; // Ganti warna tombol setelah berhasil
-                });
-              </script>";
-    } else {
-        echo "<script>
-                alert('Gagal mengikuti latihan: " . $insert_stmt->error . "');
-              </script>";
-    }
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,7 +65,7 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
             color: #000;
         }
         .btn-daftar {
-            background-color: <?php echo $button_color; ?>;
+            background-color: #FE7C45;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
@@ -161,6 +99,24 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
             color: #000;
             margin-bottom: 5px;
         }   
+
+        /* Styling untuk tabel */
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #FE7C45;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -190,9 +146,28 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
             <strong><?php echo htmlspecialchars($row['waktu']); ?></strong>
         </div>
     </div>
-        <form method="POST">
-            <button type="submit" name="ikuti_latihan" class="btn-daftar" <?php if ($button_disabled) echo 'disabled'; ?>><?php echo $button_text; ?></button>
-        </form>
+
+        <!-- Tabel yang menampilkan username dan email dari detailcamp -->
+        <h2>Daftar Peserta Latihan</h2>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+            <?php
+            // Periksa apakah ada data peserta
+            if ($result_detailcamp->num_rows > 0) {
+                while ($row_detailcamp = $result_detailcamp->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($row_detailcamp['username']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row_detailcamp['email']) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='2'>Tidak ada peserta yang terdaftar.</td></tr>";
+            }
+            ?>
+        </table>
     </section>
 
     <footer>

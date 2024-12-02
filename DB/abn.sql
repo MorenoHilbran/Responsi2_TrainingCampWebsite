@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 29, 2024 at 01:36 PM
+-- Generation Time: Dec 02, 2024 at 05:02 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -33,6 +33,13 @@ CREATE TABLE `admin` (
   `password` varchar(25) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`username`, `email`, `password`) VALUES
+('renggo', 'renggo@gmail.com', 'renggo123');
+
 -- --------------------------------------------------------
 
 --
@@ -54,7 +61,7 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`id_jadwal`, `nama_latihan`, `deskripsi`, `tempat`, `tanggal`, `waktu`, `gambar`) VALUES
-(1, 'latihan megang bola', 'Sebelum main minimal bisa pegang bila', 'Kos Rizky', '2024-11-30', '23:20:00', 'uploads/6749bf8dc3d2b.jpg');
+(4, 'Kumpul Santai', 'Perdana kumpul dulu adik adik', 'Rumah Sasa', '2024-11-30', '07:00:00', 'uploads/6749f2af2f376.png');
 
 -- --------------------------------------------------------
 
@@ -65,6 +72,7 @@ INSERT INTO `jadwal` (`id_jadwal`, `nama_latihan`, `deskripsi`, `tempat`, `tangg
 CREATE TABLE `user` (
   `id_user` int NOT NULL,
   `username` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(25) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -72,8 +80,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `password`) VALUES
-(1, 'kafah', 'kafah123');
+INSERT INTO `user` (`id_user`, `username`, `email`, `password`) VALUES
+(1, 'kafah', '', 'kafah123'),
+(4, 'sasa', 'sasa123@gmail.com', 'sasa123');
 
 --
 -- Indexes for dumped tables
@@ -97,7 +106,8 @@ ALTER TABLE `jadwal`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -107,13 +117,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jadwal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

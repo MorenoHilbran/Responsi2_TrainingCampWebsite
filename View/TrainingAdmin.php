@@ -343,7 +343,9 @@
                        <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                        <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                        <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
-                       <a href="detail.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Daftar Sekarang</a>
+                       <a href="detailadmin.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Detail Latihan</a>
+                       <a href="TrainingAdmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Edit</a>
+                       <a href="TrainingAdmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-daftar" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
 
                    </div>
                </div>
