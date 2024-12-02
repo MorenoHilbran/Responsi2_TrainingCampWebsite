@@ -312,9 +312,7 @@
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="Training.php" class="active">Training</a></li>
-            <li><a href="TeamProfile.php">Team Profile</a></li>
+            <li><a href="TrainingAdmin.php" class="active">Training</a></li>
             <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
