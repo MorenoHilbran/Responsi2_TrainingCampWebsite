@@ -48,21 +48,22 @@ if (isset($_GET['id_jadwal'])) {
             padding: 40px 20px;
         }
         .detail h1 {
-            font-size: 36px;
             color: #FE7C45;
-            margin-bottom: 20px;
+            font-size:50px;
+            text-align: center;
+            margin-bottom: 30px;
         }
         .detail img {
-            max-width: 100%;
-            height: auto;
+            width: 962px;
+            height: 460px;
             border-radius: 10px;
             margin: 20px 0;
         }
         .detail p {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            margin: 10px 0;
-            color: #000;
+            font-size:24px;
+            text-align: center;
+            margin-bottom:10px;
+            font-weight:600;
         }
         .btn-daftar {
             background-color: #FE7C45;

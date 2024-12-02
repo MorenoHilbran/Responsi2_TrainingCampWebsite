@@ -81,6 +81,7 @@ $result = $connect  ->query(  $sql);
         color: white;
         transform: translateY(-50%);
         text-decoration: none;
+        cursor: pointer;
     }
     .btn-daftar:hover{
         background-color: #e6b313;

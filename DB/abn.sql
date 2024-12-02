@@ -51,7 +51,7 @@ CREATE TABLE `detailcamp` (
   `id_user` int DEFAULT NULL,
   `username` varchar(25) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ci;
 
 --
 -- Dumping data for table `detailcamp`

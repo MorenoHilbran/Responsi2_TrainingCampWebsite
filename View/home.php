@@ -25,7 +25,7 @@
                 Program training untuk pemula yang ingin mengembangkan <br>
                 kemampuannya dalam dunia basket.
             </p>
-            <button class="btn">Ikuti Pelatihan</button>
+            <a href="Training.php"><button class="btn">Ikuti Pelatihan</button></a>
         </div>
     </section>
 
