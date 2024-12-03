@@ -36,21 +36,33 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstall:
 
 ## 📁 Struktur Project
 
-```
-src/
-├── app/
-│   ├── profile/           # profile page
-│   ├── anime/           # anime page
-│   ├── manga/         # manga page
-│   ├── pages/       # list of pages
-│   │   ├── anime-detail/      # anime detail pages
-│   │   └── manga-detail/      # manga detail pages
-│   ├── services/         # Api url for anime and manga
-│   └── bookmark/         # bookmark page
-├── assets/            # images, icons, etc
-├── theme/            # global SCSS files
-└── environments/     # environment configurations
-```
+RESPONSI_2_TRAINING_CAMP_WEBSITE/
+├── Assets/
+├── DB/
+├── Scripts/
+├── Team/
+│   ├── teamprofileDEN.php
+│   ├── teamprofileGSW.php
+│   └── teamprofileLAL.php
+├── View/
+│   ├── uploads/
+│   ├── connect.php
+│   ├── detail.php
+│   ├── detailadmin.php
+│   ├── home.php
+│   ├── home2.php
+│   ├── login.php
+│   ├── register.php
+│   ├── style.css
+│   ├── styleteam.css
+│   ├── teamprofile.php
+│   ├── teamprofile2.php
+│   ├── Training.php
+│   ├── Training2.php
+│   ├── TrainingAdmin.php
+│   └── index.php
+└── README.md
+
 
 
 ## 📞 Kontak
