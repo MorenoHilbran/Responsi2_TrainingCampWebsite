@@ -163,7 +163,7 @@
             }
             
         .card {
-            background-color: #FF7134;
+            background-color: #F5F7FA;
             border-radius: 12px;
             overflow: hidden;
             width: 100%;
@@ -212,9 +212,8 @@
             cursor: pointer;
             border-radius: 5px;
         }
-            
-        .btn-daftar{
-            background-color: #f7dc6f;
+        .btn-detail{
+            background-color: #7BFF53;
             float:right;                
             border: none;
             border-radius: 5px;
@@ -224,21 +223,54 @@
             transform: translateY(-50%);
             text-decoration: none;
             }
-        .btn-daftar:hover{
+        .btn-detail:hover{
+            background-color: #45FE7C;
+            cursor: pointer;
+            
+        }   
+        .btn-edit{
+            background-color: #FE7C45;
+            float:right;                
+            border: none;
+            border-radius: 5px;
+            padding:5px;
+            margin-right:30px;
+            color: white;                
+            transform: translateY(-50%);
+            text-decoration: none;
+            display: flex;
+            }
+        .btn-edit:hover{
             background-color: #e6b313;
             cursor: pointer;
             
         }
-
+        .btn-hapus{
+            background-color: #DE5654;
+            float:right;                
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-right:30px;
+            color: white;                
+            transform: translateY(-50%);
+            text-decoration: none;
+            }
+        .btn-hapus:hover{
+            background-color: #e6b313;
+            cursor: pointer;
+            
+        }
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
+            display: none;
+            position: fixed;
+            z-index: 1;
             left: 0;
             top: 0;
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.5); 
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
        
@@ -341,9 +373,9 @@
                        <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                        <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                        <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
-                       <a href="detailadmin.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Detail Latihan</a>
-                       <a href="TrainingAdmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-daftar">Edit</a>
-                       <a href="TrainingAdmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-daftar" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
+                       <a href="TrainingAdmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-edit"><img src="../Assets/edit.png" alt="edit"></a>
+                       <a href="detailadmin.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-detail">Detail Latihan</a>
+                       <a href="TrainingAdmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
 
                    </div>
                </div>
@@ -394,6 +426,10 @@
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2024 NBA Training Course. All rights reserved.</p>
+    </footer>
+    
     <script>
         // JavaScript untuk mengatur pop-up
         var modal = document.getElementById("myModal");

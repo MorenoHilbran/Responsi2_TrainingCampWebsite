@@ -29,15 +29,15 @@ $result = $connect  ->query(  $sql);
     }
     
     .card {
-    background-color: #FF7134;
-    border-radius: 12px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 1300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-    display: flex;
-    }
+            background-color: #F5F7FA;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            display: flex;
+            }
 
     .card-image {
     width:300px;
@@ -128,5 +128,9 @@ $result = $connect  ->query(  $sql);
 
             
         </section>
+
+        <footer>
+        <p>&copy; 2024 NBA Training Course. All rights reserved.</p>
+            </footer>
 </body>
 </html>
