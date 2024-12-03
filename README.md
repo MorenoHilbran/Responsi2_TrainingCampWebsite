@@ -35,7 +35,7 @@ Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstall:
 
 
 ## 📁 Struktur Project
-
+```
 RESPONSI_2_TRAINING_CAMP_WEBSITE/
 ├── Assets/
 ├── DB/
@@ -62,7 +62,7 @@ RESPONSI_2_TRAINING_CAMP_WEBSITE/
 │   ├── TrainingAdmin.php
 │   └── index.php
 └── README.md
-
+```
 
 
 ## 📞 Kontak
