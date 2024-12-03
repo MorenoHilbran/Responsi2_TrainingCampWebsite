@@ -234,4 +234,5 @@ footer {
     gap: 60px;
     padding:40px 0px 60px 0px;
     border-bottom:2px solid #ff7043;
+    overflow-y: hidden;
 }
