@@ -77,17 +77,24 @@
     }
 
     // Fungsi Hapus Data
-    if (isset($_GET['delete'])) {
-        $id = $_GET['delete'];
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
 
-        $stmt = $connect->prepare("DELETE FROM jadwal WHERE id_jadwal=?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
+    // Delete the rows from the `detailcamp` table that reference this `jadwal`
+    $stmt = $connect->prepare("DELETE FROM detailcamp WHERE id_jadwal=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
 
-        header("Location: TrainingAdmin.php");
-        exit;
-    }
+    // Now, delete the row from the `jadwal` table
+    $stmt = $connect->prepare("DELETE FROM jadwal WHERE id_jadwal=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: TrainingAdmin.php");
+    exit;
+}
 
     // Ambil Data untuk Edit
     $id = $nama_latihan = $deskripsi = $tempat = $tanggal = $waktu = $gambar = "";
