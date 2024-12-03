@@ -345,6 +345,12 @@ if (isset($_GET['delete'])) {
             top: 10px;
             right: 10px;
         }
+        .nojadwal {
+            text-align: center;
+            color: #FE7C45;
+            font-size: 15px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -389,7 +395,9 @@ if (isset($_GET['delete'])) {
            <?php endwhile; ?>
         </div>
         <?php else: ?>
-        <p>Tidak ada jadwal tersedia.</p>
+            <div class=nojadwal>
+        <p>Tidak ada jadwal tersedia</p>
+            </div>
         <?php endif; ?>
         <button id="myBtn" class="btn-admin">+</button>
     </section>

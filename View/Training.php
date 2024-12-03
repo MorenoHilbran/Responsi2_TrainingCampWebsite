@@ -79,6 +79,12 @@ $result = $connect  ->query(  $sql);
         background-color: #e6b313;
         cursor: pointer;
     }
+    .nojadwal {
+            text-align: center;
+            color: #FE7C45;
+            font-size: 15px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -123,7 +129,9 @@ $result = $connect  ->query(  $sql);
         <?php endwhile; ?>
     </div>
 <?php else: ?>
+    <div class="nojadwal">
     <p>Tidak ada jadwal tersedia.</p>
+    </div>
 <?php endif; ?>
 
             
