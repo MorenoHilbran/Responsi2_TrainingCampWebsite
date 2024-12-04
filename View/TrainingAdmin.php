@@ -1,12 +1,14 @@
 <?php
+session_start();
     // Koneksi ke Database
     include("connect.php");
 
-     // Periksa apakah pengguna sudah login dan memiliki role 'admin'
-    if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+// Periksa apakah pengguna sudah login
+if (!isset($_SESSION['username']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header('Location: login.php');
     exit;
-    }
+}
+
     // Fungsi Tambah Data
     if (isset($_POST['create'])) {
         // Ambil dan sanitasi input pengguna
