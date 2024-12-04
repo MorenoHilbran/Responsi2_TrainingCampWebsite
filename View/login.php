@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Periksa apakah form login sudah dikirim
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -8,9 +9,9 @@ if (isset($_POST['login'])) {
 
     // Cek di tabel admin
     $result_admin = mysqli_query($connect, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
-    
     if (mysqli_num_rows($result_admin) == 1) {
         $_SESSION['username'] = $username;
+        $_SESSION['role'] = 'admin';
         $berhasil = "Berhasil Login sebagai Admin";
         echo "<script>alert('$berhasil');</script>";
         header("Location: TrainingAdmin.php");
@@ -19,15 +20,16 @@ if (isset($_POST['login'])) {
 
     // Cek di tabel user
     $result_user = mysqli_query($connect, "SELECT * FROM user WHERE username = '$username' AND password = '$password'");
-    
     if (mysqli_num_rows($result_user) == 1) {
         $_SESSION['username'] = $username;
+        $_SESSION['role'] = 'user';
         $berhasil = "Berhasil Login sebagai User";
         echo "<script>alert('$berhasil');</script>";
         header("Location: Training2.php");
         exit;
     } else {
         $error = "Username atau password salah.";
+        echo "<script>alert('$error');</script>";
     }
 }
 ?>

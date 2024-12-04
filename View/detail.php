@@ -3,7 +3,7 @@ session_start();
 require 'connect.php';
 
 // Periksa apakah pengguna sudah login
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
     header('Location: login.php');
     exit;
 }

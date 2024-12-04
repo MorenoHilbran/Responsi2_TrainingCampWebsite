@@ -4,6 +4,12 @@ require 'connect.php';
 if (isset($_GET['id_jadwal'])) {
     $id = intval($_GET['id_jadwal']); // Ambil parameter ID dari URL
 
+    // Periksa apakah pengguna sudah login dan memiliki role 'admin'
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+
     // Gunakan prepared statement untuk keamanan
     $sql = "SELECT * FROM jadwal WHERE id_jadwal = ?";
     $stmt = $connect->prepare($sql);
@@ -174,3 +180,4 @@ if (isset($_GET['id_jadwal'])) {
     </footer>
 </body>
 </html>
+        

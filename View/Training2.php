@@ -8,11 +8,10 @@ if ($connect->connect_error) {
 }
 
 // Periksa apakah pengguna sudah login
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
     header('Location: login.php');
     exit;
 }
-
 
 $sql = "SELECT * FROM jadwal";
 $result = $connect  ->query(  $sql);
