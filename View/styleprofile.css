@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #CEE0ED;
+    width: 100%;
+    height: 100vh;
+}
+
+.header {
+    width: 100%;
+    height: 7%;
+    background: #569CCF;
+}
+
+.icon {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.nav {
+    position: relative;
+    left: 60%;
+    height: 60%;
+    width: 40%;
+    bottom: 80%;
+}
+
+.nav a {
+    position: relative;
+    top: 20%;
+    color: #fff;
+    margin-left: 45px;
+    text-decoration: none;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.nav svg {
+    width: 5%;
+    height: 50%;
+}
+
+.box {
+    border-radius: 20px;
+    background: #569CCF;
+    width: 60%;
+    height: 60%;
+    position: relative;
+    top: 10%;
+    left: 20%;
+}
+
+.left {
+    width: 100%;
+    height: 100%;
+    float: left;
+    padding-left: 10%;
+}
+
+h1 {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    position: relative;
+    top: 10%;
+}
+
+
+button {
+    border: none;
+    background: transparent;
+    color: #FFF;
+    font-family: Montserrat;
+    position: relative;
+    top: 20%;
+    left: 25%;
+    /* text-decoration: underline; */
+    cursor: pointer;
+}
+
+label {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.label1 {
+    position: relative;
+    top: 20%;
+    margin-bottom: 50px;
+}
+.label2 {
+    position: relative;
+    top: 25%;
+    margin-bottom: 50px;
+}
+.label3 {
+    position: relative;
+    top: 30%;
+    margin-bottom: 50px;
+}
+
+input {
+    border: none;
+    background: transparent;
+    border-bottom-style: solid;
+    width: 80%;
+    height: 10%;
+    color: #FFF;
+    font-family: Montserrat;
+}
+
+input::placeholder {
+    color: #fff;
+    font-family: Montserrat;
+}
+
+.input1 {
+    position: relative;
+    top: 20%;
+    font-size: medium;
+    font-family: Montserrat;
+}
+
+.input2 {
+    position: relative;
+    top: 25%;
+    font-size: medium;
+    font-family: Montserrat;
+}
+
+.input3 {
+    position: relative;
+    top: 30%;
+    font-size: medium;
+    font-family: Montserrat;
+}
+
+button {
+    border-radius: 30px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    height: 10%;
+    position: relative;
+    top: 40%;
+    cursor: pointer;
+}
+
+.change-profile {
+    background: #387CAE;
+    width: 40%;
+    cursor: pointer;
+}
+
+.signout {
+    background: #194769;
+    width: 20%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.footer {
+    opacity: 0.8;
+    background: #387CAE;
+    width: 100%;
+    height: 5%;
+    position:absolute;
+    width:100%;
+    bottom:0px;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}

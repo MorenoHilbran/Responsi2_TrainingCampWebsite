@@ -172,7 +172,7 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
             <li><a href="home2.php">Home</a></li>
             <li><a href="Training2.php" class="active">Training</a></li>
             <li><a href="TeamProfile2.php">Team Profile</a></li>
-            <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
+            <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
 

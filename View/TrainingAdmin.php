@@ -365,7 +365,7 @@ if (isset($_GET['delete'])) {
         <div class="logo">NBA</div>
         <ul>
             <li><a href="TrainingAdmin.php" class="active">Training</a></li>
-            <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
+            <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
 
