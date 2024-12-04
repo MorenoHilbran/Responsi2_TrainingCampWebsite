@@ -7,9 +7,13 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     include("connect.php");
 
-    // Cek di tabel admin
-    $result_admin = mysqli_query($connect, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
-    if (mysqli_num_rows($result_admin) == 1) {
+    // Menggunakan prepared statements untuk menghindari SQL injection
+    $stmt_admin = $connect->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
+    $stmt_admin->bind_param("ss", $username, $password); // ss berarti dua parameter string
+    $stmt_admin->execute();
+    $result_admin = $stmt_admin->get_result();
+    
+    if ($result_admin->num_rows == 1) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = 'admin';
         $berhasil = "Berhasil Login sebagai Admin";
@@ -19,8 +23,12 @@ if (isset($_POST['login'])) {
     }
 
     // Cek di tabel user
-    $result_user = mysqli_query($connect, "SELECT * FROM user WHERE username = '$username' AND password = '$password'");
-    if (mysqli_num_rows($result_user) == 1) {
+    $stmt_user = $connect->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
+    $stmt_user->bind_param("ss", $username, $password);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+    
+    if ($result_user->num_rows == 1) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = 'user';
         $berhasil = "Berhasil Login sebagai User";

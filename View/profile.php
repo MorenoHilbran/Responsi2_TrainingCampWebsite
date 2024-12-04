@@ -1,65 +1,136 @@
-<?php
+<?php 
 session_start();
-include 'connect.php';
-$id = $_SESSION['username'];
-if (isset($_SESSION['username'])) {
-    $query = "SELECT * FROM user WHERE username=$id";
-    $result = mysqli_query($conection, $query);
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-    } else {
-        echo "User not found.";
-        exit;
-    }
-} else {
+
+// Pastikan pengguna sudah login
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
 }
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/myprofile.css">
-        <link rel="stylesheet" href="style.css">
-        <title>My Profile</title>
-    </head>
-    <body>
-    <header class="navbar">
-        <div class="logo">NBA</div>
-        <ul>
-            <li><a href="home2.php" class="active">Home</a></li>
-            <li><a href="Training2.php">Training</a></li>
-            <li><a href="TeamProfile2.php">Team Profile</a></li>
-            <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
-        </ul>
-    </header>
 
-    <div class="box">
-        <div class="left">
-            <h1>PROFILE</h1>
-            <label for="" class="label3">Username</label><br>
-            <input type="text" class="input3" value="<?php echo htmlspecialchars($row['username']); ?>" readonly>
-            <label for="email" class="label2">E-mail</label><br>
-            <input type="email" class="input2" value="<?php echo htmlspecialchars($row['email']); ?>" readonly><br>
-            
-            <button class="signout" onclick="confLogout()">Logout</button>
-        </div>
+// Ambil role dari session
+$role = $_SESSION['role'];
+$username = $_SESSION['username'];
+
+// Koneksi ke database (sesuaikan dengan file koneksi Anda)
+include("connect.php");
+
+if ($role == 'admin') {
+    $query = "SELECT * FROM admin WHERE username = '$username'";
+} else {
+    $query = "SELECT * FROM user WHERE username = '$username'";
+}
+
+$result = mysqli_query($connect, $query);
+$userData = mysqli_fetch_assoc($result);
+
+if (!$userData) {
+    die("Data pengguna tidak ditemukan.");
+}
+
+// Log out process
+if (isset($_POST['logout'])) {
+    session_destroy();  // Hapus sesi
+    header("Location: logout.php");  // Arahkan ke halaman login
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .profile-header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+        .profile-info p {
+            margin: 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .logout-btn {
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .logout-btn:hover {
+            background-color: #FF4500;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-header">
+        <img src="user-logo.png" alt="User Profile Picture">
+        <h1>Welcome, <?php echo $userData['username']; ?></h1>
     </div>
-    <div class="footer"></div>
-    <script>
-        function editprofile() {
-            window.location.replace('editprofile.php');
-        }
-        function confLogout() {
-            let text = "Are you sure you want to Logout?";
-            if (confirm(text) == true) {
-                window.location.replace('logout.php');
-            } else {
-                alert("Logout Canceled");
-            }
-        }
-    </script>
+
+    <div class="profile-info">
+        <p><span class="info-label">Username:</span> <?php echo $userData['username']; ?></p>
+        <p><span class="info-label">Email:</span> <?php echo $userData['email']; ?></p>
+    </div>
+
+    <!-- Tombol Log Out -->
+    <form method="POST">
+        <button type="submit" name="logout" class="logout-btn">Log Out</button>
+    </form>
+</div>
+
+<div class="footer">
+    <p>© 2024 NBA Training Course. All rights reserved.</p>
+</div>
+
 </body>
 </html>
