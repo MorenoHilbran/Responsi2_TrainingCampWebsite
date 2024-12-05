@@ -48,22 +48,34 @@ session_start();
             </a>
         </div>
         <div class="card" data-name="Washington Wizards">
+            <a href="../Team/teamprofileWAS.php">
             <img src="../Assets/WashingtonWizards.png" alt="Washington Wizards">
+            </a>
         </div>
         <div class="card" data-name="Atlanta Hawks">
+            <a href="../Team/teamprofileATL.php">
             <img src="../Assets/AtlantaHawks.png" alt="Atlanta Hawks">
+            </a>
         </div>
         <div class="card" data-name="Miami Heat">
+            <a href="../Team/teamprofileMIA.php">
             <img src="../Assets/MiamiHeatLogo.png" alt="Miami Heat">
+            </a>
         </div>
         <div class="card" data-name="Houston Rockets">
+            <a href="../Team/teamprofileHOU.php">
             <img src="../Assets/HoustonRockets.png" alt="Houston Rockets">
+            </a>
         </div>
         <div class="card" data-name="Dallas Mavericks">
+            <a href="../Team/teamprofileDAL.php">
             <img src="../Assets/DallasMavericks.png" alt="Dallas Mavericks">
+            </a>
         </div>
         <div class="card" data-name="Memphis Grizzlies">
+            <a href="../Team/teamprofileMEM.php">
             <img src="../Assets/MemphisGrizzlies.png" alt="Memphis Grizzlies">
+            </a>
         </div>
     </div>
 </section>

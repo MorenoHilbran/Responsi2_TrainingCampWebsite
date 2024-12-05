@@ -40,19 +40,25 @@ if (isset($_POST['logout'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Profil Pengguna</title>
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #F5F5F5;
+            background-color: #563A9C;
             margin: 0;
             padding: 0;
         }
+        h1 {
+            text-align: center;
+            font-size:64px;
+            color: #FAFAFA;
+        }
         .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
+            width: 835px;
+            margin: 30px auto;
+            padding: 30px;
             background-color: #fff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -85,52 +91,86 @@ if (isset($_POST['logout'])) {
         .info-label {
             font-weight: bold;
             color: #333;
+            font-size: 32px;
         }
         .logout-btn {
-            background-color: #FF6347;
+            background-color: #DE5654;
             color: white;
             border: none;
             padding: 12px 30px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 8px;
-            margin-top: 20px;
-            width: 100%;
+            width: 50%;
             text-align: center;
+            display: block;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .logout-btn:hover {
-            background-color: #FF4500;
+            background-color: #C14443;
         }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #777;
+        .iconprofile {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .profile-header .profile-user {
+            width: 185px;
+            height: 185px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .data {
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 25px;
+            padding-top: 10px;
+            background-color: #FF6A2C;
+            color:#FAFAFA;
+            border-radius: 15px;
+            font-size:24px;
+            font-weight: bold;
+            
         }
     </style>
 </head>
 <body>
+<header class="navbar">
+        <div class="logo">NBA</div>
+        <ul>
+            <li><a href="home2.php">Home</a></li>
+            <li><a href="Training2.php">Training</a></li>
+            <li><a href="TeamProfile2.php">Team Profile</a></li>
+            <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
+        </ul>
+    </header>
 
-<div class="container">
-    <div class="profile-header">
-        <img src="user-logo.png" alt="User Profile Picture">
-        <h1>Welcome, <?php echo $userData['username']; ?></h1>
+    <h1>Profile</h1>
+
+    <div class="container">
+        <div class="profile-header">
+            <img src="../Assets/profile.png" alt="User Profile Picture" class="profile-user">
+            <h1>Welcome, <?php echo $userData['username']; ?></h1>
+        </div>
+
+        <div class="profile-info">
+            <p class="info-label">Username</p>
+            <p class="data"><?php echo $userData['username']; ?></p>
+            <p class="info-label">Email</p>
+            <p class="data"><?php echo $userData['email']; ?></p>
+        </div>
+
+        <!-- Tombol Log Out -->
+        <form method="POST">
+            <button type="submit" name="logout" class="logout-btn">Log Out</button>
+        </form>
     </div>
 
-    <div class="profile-info">
-        <p><span class="info-label">Username:</span> <?php echo $userData['username']; ?></p>
-        <p><span class="info-label">Email:</span> <?php echo $userData['email']; ?></p>
-    </div>
-
-    <!-- Tombol Log Out -->
-    <form method="POST">
-        <button type="submit" name="logout" class="logout-btn">Log Out</button>
-    </form>
-</div>
-
-<div class="footer">
-    <p>© 2024 NBA Training Course. All rights reserved.</p>
-</div>
+    <footer>
+        <p>&copy; 2024 NBA Training Course. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
