@@ -5,7 +5,7 @@ include("connect.php");
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
-    header("Location: login.php");
+    header("Location: training.php");
     exit;
 }
 
