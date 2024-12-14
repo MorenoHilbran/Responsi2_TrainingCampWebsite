@@ -1,5 +1,6 @@
 <?php
 session_start(); // Start the session
+include ("connect.php");
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {
@@ -29,8 +30,8 @@ if (!isset($_SESSION['username'])) {
         <div class="logo">NBA</div>
         <ul>
             <li><a href="home2.php" class="active">Home</a></li>
-            <li><a href="Training2.php">Training</a></li>
-            <li><a href="TeamProfile2.php">Team Profile</a></li>
+            <li><a href="training2.php">Training</a></li>
+            <li><a href="teamprofile2.php">Team Profile</a></li>
             <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>

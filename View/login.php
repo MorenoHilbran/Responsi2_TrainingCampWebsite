@@ -9,16 +9,15 @@ if (isset($_POST['login'])) {
 
     // Menggunakan prepared statements untuk menghindari SQL injection
     $stmt_admin = $connect->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
-    $stmt_admin->bind_param("ss", $username, $password); // ss berarti dua parameter string
+    $stmt_admin->bind_param("ss", $username, $password);
     $stmt_admin->execute();
-    $result_admin = $stmt_admin->get_result();
-    
-    if ($result_admin->num_rows == 1) {
+    $stmt_admin->store_result(); // Simpan hasil eksekusi
+    if ($stmt_admin->num_rows == 1) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = 'admin';
         $berhasil = "Berhasil Login sebagai Admin";
         echo "<script>alert('$berhasil');</script>";
-        header("Location: TrainingAdmin.php");
+        header("Location: trainingadmin.php");
         exit;
     }
 
@@ -26,14 +25,13 @@ if (isset($_POST['login'])) {
     $stmt_user = $connect->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
     $stmt_user->bind_param("ss", $username, $password);
     $stmt_user->execute();
-    $result_user = $stmt_user->get_result();
-    
-    if ($result_user->num_rows == 1) {
+    $stmt_user->store_result(); // Simpan hasil eksekusi
+    if ($stmt_user->num_rows == 1) {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = 'user';
         $berhasil = "Berhasil Login sebagai User";
         echo "<script>alert('$berhasil');</script>";
-        header("Location: Training2.php");
+        header("Location: training2.php");
         exit;
     } else {
         $error = "Username atau password salah.";
@@ -41,6 +39,7 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

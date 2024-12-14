@@ -16,15 +16,25 @@ if (isset($_GET['id_jadwal'])) {
     $stmt = $connect->prepare($sql);
     $stmt->bind_param("i", $id_jadwal);
     $stmt->execute();
-    $result = $stmt->get_result();
 
-    // Periksa apakah data ditemukan
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc(); // Ambil data
+    // Gunakan bind_result dan fetch untuk mengambil hasil
+    $stmt->bind_result($id_jadwal_res, $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar);
+    if ($stmt->fetch()) {
+        $row = [
+            'id_jadwal' => $id_jadwal_res,
+            'nama_latihan' => $nama_latihan,
+            'deskripsi' => $deskripsi,
+            'tempat' => $tempat,
+            'tanggal' => $tanggal,
+            'waktu' => $waktu,
+            'gambar' => $gambar,
+        ];
     } else {
         echo "Jadwal tidak ditemukan.";
+        $stmt->close();
         exit;
     }
+    $stmt->close();
 } else {
     echo "ID tidak diberikan.";
     exit;
@@ -44,27 +54,28 @@ $user_query = "SELECT id_user, email FROM user WHERE username = ?";
 $user_stmt = $connect->prepare($user_query);
 $user_stmt->bind_param("s", $username);
 $user_stmt->execute();
-$user_result = $user_stmt->get_result();
+$user_stmt->bind_result($id_user, $email);
 
-if ($user_result->num_rows > 0) {
-    $user_row = $user_result->fetch_assoc();
-    $id_user = $user_row['id_user']; // Ambil id_user dari hasil query
-    $email = $user_row['email'];     // Ambil email dari hasil query
+if ($user_stmt->fetch()) {
+    $user_stmt->close(); // Tutup statement sebelum menjalankan query berikutnya
 
     // Cek apakah pengguna sudah terdaftar untuk latihan ini
     $check_query = "SELECT * FROM detailcamp WHERE id_jadwal = ? AND username = ?";
     $check_stmt = $connect->prepare($check_query);
     $check_stmt->bind_param("is", $id_jadwal, $username);
     $check_stmt->execute();
-    $check_result = $check_stmt->get_result();
 
-    if ($check_result->num_rows > 0) {
+    $check_stmt->store_result(); // Simpan hasil query
+    if ($check_stmt->num_rows > 0) {
         // Jika sudah terdaftar, atur status tombol menjadi "Anda sudah terdaftar"
         $terdaftar = true;
         $button_text = "Anda sudah terdaftar";
         $button_disabled = true; // Nonaktifkan tombol
         $button_color = "#45FE7C"; // Ganti warna tombol setelah berhasil
     }
+    $check_stmt->close();
+} else {
+    $user_stmt->close(); // Pastikan statement ditutup jika tidak ada hasil
 }
 
 // Tangani klik tombol "Ikuti Latihan"
@@ -86,11 +97,14 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
               </script>";
     } else {
         echo "<script>
-                alert('Gagal mengikuti latihan: " . $insert_stmt->error . "');
+                alert('Gagal mengikuti latihan: " . $insert_stmt->error . "' );
               </script>";
     }
+    $insert_stmt->close();
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -170,8 +184,8 @@ if (isset($_POST['ikuti_latihan']) && !$terdaftar) {
         <div class="logo">NBA</div>
         <ul>
             <li><a href="home2.php">Home</a></li>
-            <li><a href="Training2.php" class="active">Training</a></li>
-            <li><a href="TeamProfile2.php">Team Profile</a></li>
+            <li><a href="training2.php" class="active">Training</a></li>
+            <li><a href="teamprofile2.php">Team Profile</a></li>
             <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>

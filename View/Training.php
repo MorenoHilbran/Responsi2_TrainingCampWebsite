@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$connect = new mysqli("localhost", "root", "", "abn");
+include ("connect.php");
 
 if ($connect->connect_error) {
     die("Koneksi gagal: " . $connect    ->connect_error);
@@ -92,8 +92,8 @@ $result = $connect  ->query(  $sql);
         <div class="logo">NBA</div>
         <ul>
             <li><a href="home.php">Home</a></li>
-            <li><a href="Training.php"class="active">Training</a></li>
-            <li><a href="TeamProfile.php">Team Profile</a></li>
+            <li><a href="training.php"class="active">Training</a></li>
+            <li><a href="teamprofile.php">Team Profile</a></li>
             <li><a href="login.php" class="login-btn">Login</a></li>
         </ul>
     </header>

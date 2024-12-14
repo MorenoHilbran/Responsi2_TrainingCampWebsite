@@ -14,8 +14,8 @@ session_start();
     <div class="logo">NBA</div>
     <ul>
         <li><a href="home.php">Home</a></li>
-        <li><a href="Training.php">Training</a></li>
-        <li><a href="TeamProfile.php" class="active">Team Profile</a></li>
+        <li><a href="training.php">Training</a></li>
+        <li><a href="teamprofile.php" class="active">Team Profile</a></li>
         <li><a href="login.php" class="login-btn">Login</a></li>
     </ul>
 </header>

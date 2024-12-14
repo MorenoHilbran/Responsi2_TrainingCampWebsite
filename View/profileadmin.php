@@ -140,7 +140,7 @@ if (isset($_POST['logout'])) {
 <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="TrainingAdmin.php">Training</a></li>
+            <li><a href="trainingadmin.php">Training</a></li>
             <li><a href="profileadmin.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>

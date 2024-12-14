@@ -1,42 +1,86 @@
 <?php
 session_start();
-require 'connect.php'; 
+require 'connect.php';
 
 if (isset($_GET['id_jadwal'])) {
     $id = intval($_GET['id_jadwal']); // Ambil parameter ID dari URL
 
     // Periksa apakah pengguna sudah login dan memiliki role 'admin'
-if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
-    header('Location: login.php');
-    exit;
-}
+    if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+        header('Location: login.php');
+        exit;
+    }
 
-    // Gunakan prepared statement untuk keamanan
-    $sql = "SELECT * FROM jadwal WHERE id_jadwal = ?";
+    // Query untuk mengambil data jadwal berdasarkan id_jadwal
+    $sql = "SELECT id_jadwal, nama_latihan, deskripsi, tempat, tanggal, waktu, gambar FROM jadwal WHERE id_jadwal = ?";
     $stmt = $connect->prepare($sql);
+
+    if ($stmt === false) {
+        // Jika prepare gagal, tampilkan error
+        die('Error preparing statement: ' . $connect->error);
+    }
+
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result();
+
+    // Periksa apakah eksekusi query berhasil
+    if ($stmt->error) {
+        die('Error executing query: ' . $stmt->error);
+    }
+
+    $stmt->bind_result($id_jadwal, $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar);
 
     // Periksa apakah data ditemukan
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc(); // Ambil data
+    if ($stmt->fetch()) {
+        $row = [
+            'id_jadwal' => $id_jadwal,
+            'nama_latihan' => $nama_latihan,
+            'deskripsi' => $deskripsi,
+            'tempat' => $tempat,
+            'tanggal' => $tanggal,
+            'waktu' => $waktu,
+            'gambar' => $gambar,
+        ];
     } else {
         echo "Jadwal tidak ditemukan.";
         exit;
     }
 
+    $stmt->close();
+
     // Query untuk mengambil data dari tabel detailcamp berdasarkan id_jadwal
     $sql_detailcamp = "SELECT username, email FROM detailcamp WHERE id_jadwal = ?";
     $stmt_detailcamp = $connect->prepare($sql_detailcamp);
+
+    if ($stmt_detailcamp === false) {
+        die('Error preparing statement for detailcamp: ' . $connect->error);
+    }
+
     $stmt_detailcamp->bind_param("i", $id);
     $stmt_detailcamp->execute();
-    $result_detailcamp = $stmt_detailcamp->get_result();
+
+    if ($stmt_detailcamp->error) {
+        die('Error executing query for detailcamp: ' . $stmt_detailcamp->error);
+    }
+
+    $stmt_detailcamp->bind_result($username, $email);
+
+    // Ambil semua data detailcamp
+    $detailcamp_data = [];
+    while ($stmt_detailcamp->fetch()) {
+        $detailcamp_data[] = [
+            'username' => $username,
+            'email' => $email,
+        ];
+    }
+
+    $stmt_detailcamp->close();
 } else {
     echo "ID tidak diberikan.";
     exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +175,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="TrainingAdmin.php" class="active">Training</a></li>
+            <li><a href="trainingadmin.php" class="active">Training</a></li>
             <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
@@ -162,8 +206,8 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
             </tr>
             <?php
             // Periksa apakah ada data peserta
-            if ($result_detailcamp->num_rows > 0) {
-                while ($row_detailcamp = $result_detailcamp->fetch_assoc()) {
+            if (!empty($detailcamp_data)) {
+                foreach ($detailcamp_data as $row_detailcamp) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($row_detailcamp['username']) . "</td>";
                     echo "<td>" . htmlspecialchars($row_detailcamp['email']) . "</td>";
@@ -181,4 +225,3 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     </footer>
 </body>
 </html>
-        

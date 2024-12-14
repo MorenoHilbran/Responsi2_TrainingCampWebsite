@@ -1,15 +1,11 @@
 <?php
 session_start();
 
-$connect = new mysqli("localhost", "root", "", "abn");
-
-if ($connect->connect_error) {
-    die("Koneksi gagal: " . $connect    ->connect_error);
-}
+include("connect.php");
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
-    header('Location: login.php');
+    header("Location: login.php");
     exit;
 }
 
@@ -104,8 +100,8 @@ $result = $connect  ->query(  $sql);
         <div class="logo">NBA</div>
         <ul>
             <li><a href="home2.php">Home</a></li>
-            <li><a href="Training2.php" class="active">Training</a></li>
-            <li><a href="TeamProfile2.php">Team Profile</a></li>
+            <li><a href="training2.php" class="active">Training</a></li>
+            <li><a href="teamprofile2.php">Team Profile</a></li>
             <li><a href="profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>

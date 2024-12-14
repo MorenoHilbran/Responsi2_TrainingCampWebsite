@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../View/style.css">
+    <link rel="stylesheet" href="../view/style.css">
     <style>
         .iconprofile {
         position: absolute;
@@ -59,9 +59,9 @@
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="../View/home2.php">Home</a></li>
-            <li><a href="../View/Training2.php">Training</a></li>
-            <li><a href="../View/TeamProfile2.php" class="active">Team Profile</a></li>
+            <li><a href="../view/home2.php">Home</a></li>
+            <li><a href="../view/training2.php">Training</a></li>
+            <li><a href="../view/teamprofile2.php" class="active">Team Profile</a></li>
             <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>

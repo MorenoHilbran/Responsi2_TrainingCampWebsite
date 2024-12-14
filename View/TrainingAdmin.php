@@ -1,7 +1,7 @@
 <?php
 session_start();
-    // Koneksi ke Database
-    include("connect.php");
+// Koneksi ke Database
+include("connect.php");
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['username']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -9,81 +9,82 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['role']) || $_SESSION['rol
     exit;
 }
 
-    // Fungsi Tambah Data
-    if (isset($_POST['create'])) {
-        // Ambil dan sanitasi input pengguna
-        $nama_latihan = $_POST['nama_latihan'];
-        $deskripsi = $_POST['deskripsi'];
-        $tempat = $_POST['tempat'];
-        $tanggal = $_POST['tanggal']; // tanggal sudah dalam format yang aman (date)
-        $waktu = $_POST['waktu']; // waktu sudah dalam format yang aman (time)
-        $gambar = '';
+// Fungsi Tambah Data
+if (isset($_POST['create'])) {
+    // Ambil dan sanitasi input pengguna
+    $nama_latihan = $_POST['nama_latihan'];
+    $deskripsi = $_POST['deskripsi'];
+    $tempat = $_POST['tempat'];
+    $tanggal = $_POST['tanggal']; // tanggal sudah dalam format yang aman (date)
+    $waktu = $_POST['waktu']; // waktu sudah dalam format yang aman (time)
+    $gambar = '';
     
-        // Validasi dan upload file gambar
-        if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-            $fileTmp = $_FILES['gambar']['tmp_name'];
-            $fileName = $_FILES['gambar']['name'];
-            $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+    // Validasi dan upload file gambar
+    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
+        $fileTmp = $_FILES['gambar']['tmp_name'];
+        $fileName = $_FILES['gambar']['name'];
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
     
-            // Hanya izinkan tipe file tertentu
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
-            if (in_array(strtolower($fileExt), $allowedExtensions)) {
-                // Buat nama unik untuk file yang akan di-upload
-                $newFileName = uniqid() . '.' . $fileExt;
-                $filePath = 'uploads/' . $newFileName;
+        // Hanya izinkan tipe file tertentu
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
+        if (in_array(strtolower($fileExt), $allowedExtensions)) {
+            // Buat nama unik untuk file yang akan di-upload
+            $newFileName = uniqid() . '.' . $fileExt;
+            $filePath = 'uploads/' . $newFileName;
     
-                // Pindahkan file ke folder uploads
-                if (move_uploaded_file($fileTmp, $filePath)) {
-                    $gambar = $filePath; // Simpan path gambar jika berhasil di-upload
-                } else {
-                    echo "Gagal meng-upload gambar.";
-                    exit;
-                }
+            // Pindahkan file ke folder uploads
+            if (move_uploaded_file($fileTmp, $filePath)) {
+                $gambar = $filePath; // Simpan path gambar jika berhasil di-upload
             } else {
-                echo "Format file tidak diizinkan. Hanya file JPG atau PNG yang diperbolehkan.";
+                echo "Gagal meng-upload gambar.";
                 exit;
             }
-        }
-    
-        // Query untuk menambahkan data ke tabel jadwal
-        $sql = "INSERT INTO jadwal (nama_latihan, deskripsi, tempat, tanggal, waktu, gambar)
-                VALUES ('$nama_latihan', '$deskripsi', '$tempat', '$tanggal', '$waktu', '$gambar')";
-        
-        if ($connect->query($sql) === TRUE) {
-            header("Location: TrainingAdmin.php"); // Redirect setelah data berhasil ditambahkan
-            exit;
         } else {
-            echo "Error: " . $sql . "<br>" . $connect->error;
+            echo "Format file tidak diizinkan. Hanya file JPG atau PNG yang diperbolehkan.";
+            exit;
         }
     }
-
-    // Fungsi Update Data
-    if (isset($_POST['update'])) {
-        $id = $_POST['id'];
-        $nama_latihan = $_POST['nama_latihan'];
-        $deskripsi = $_POST['deskripsi'];
-        $tempat = $_POST['tempat'];
-        $tanggal = $_POST['tanggal'];
-        $waktu = $_POST['waktu'];
-        $gambar = $_POST['existing_gambar'];
-
-        if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-            $filename = $_FILES['gambar']['name'];
-            $filepath = 'uploads/' . $filename;
-            move_uploaded_file($_FILES['gambar']['tmp_name'], $filepath);
-            $gambar = $filepath;
-        }
-
-        $stmt = $connect->prepare("UPDATE jadwal SET nama_latihan=?, deskripsi=?, tempat=?, tanggal=?, waktu=?, gambar=? WHERE id_jadwal=?");
-        $stmt->bind_param("ssssssi", $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar, $id);
-        $stmt->execute();
-        $stmt->close();
-
-        header("Location: TrainingAdmin.php");
+    
+    // Query untuk menambahkan data ke tabel jadwal
+    $stmt = $connect->prepare("INSERT INTO jadwal (nama_latihan, deskripsi, tempat, tanggal, waktu, gambar) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar);
+    
+    if ($stmt->execute()) {
+        header("Location: trainingadmin.php"); // Redirect setelah data berhasil ditambahkan
         exit;
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
+// Fungsi Update Data
+if (isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $nama_latihan = $_POST['nama_latihan'];
+    $deskripsi = $_POST['deskripsi'];
+    $tempat = $_POST['tempat'];
+    $tanggal = $_POST['tanggal'];
+    $waktu = $_POST['waktu'];
+    $gambar = $_POST['existing_gambar'];
+
+    if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
+        $filename = $_FILES['gambar']['name'];
+        $filepath = 'uploads/' . $filename;
+        move_uploaded_file($_FILES['gambar']['tmp_name'], $filepath);
+        $gambar = $filepath;
     }
 
-    // Fungsi Hapus Data
+    $stmt = $connect->prepare("UPDATE jadwal SET nama_latihan=?, deskripsi=?, tempat=?, tanggal=?, waktu=?, gambar=? WHERE id_jadwal=?");
+    $stmt->bind_param("ssssssi", $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar, $id);
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: trainingadmin.php");
+    exit;
+}
+
+// Fungsi Hapus Data
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
@@ -99,34 +100,34 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: TrainingAdmin.php");
+    header("Location: trainingadmin.php");
     exit;
 }
 
-    // Ambil Data untuk Edit
-    $id = $nama_latihan = $deskripsi = $tempat = $tanggal = $waktu = $gambar = "";
-    if (isset($_GET['edit'])) {
-        $id = $_GET['edit'];
+// Ambil Data untuk Edit
+$id = $nama_latihan = $deskripsi = $tempat = $tanggal = $waktu = $gambar = "";
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
 
-        $stmt = $connect->prepare("SELECT * FROM jadwal WHERE id_jadwal=?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt = $connect->prepare("SELECT * FROM jadwal WHERE id_jadwal=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    
+    // Menggunakan bind_result dan fetch untuk mengambil data
+    $stmt->bind_result($id_jadwal, $nama_latihan, $deskripsi, $tempat, $tanggal, $waktu, $gambar);
 
-        if ($row = $result->fetch_assoc()) {
-            $nama_latihan = $row['nama_latihan'];
-            $deskripsi = $row['deskripsi'];
-            $tempat = $row['tempat'];
-            $tanggal = $row['tanggal'];
-            $waktu = $row['waktu'];
-            $gambar = $row['gambar'];
-        }
-        $stmt->close();
+    if ($stmt->fetch()) {
+        // Data berhasil diambil dan disimpan dalam variabel
     }
 
-    $sql = "SELECT * FROM jadwal";
-    $result = $connect  ->query(  $sql);
-    ?>
+    $stmt->close();
+}
+
+$sql = "SELECT * FROM jadwal";
+$result = $connect->query($sql);
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -364,7 +365,7 @@ if (isset($_GET['delete'])) {
     <header class="navbar">
         <div class="logo">NBA</div>
         <ul>
-            <li><a href="TrainingAdmin.php" class="active">Training</a></li>
+            <li><a href="trainingadmin.php" class="active">Training</a></li>
             <li><a href="profileadmin.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
@@ -393,9 +394,9 @@ if (isset($_GET['delete'])) {
                        <p><strong>Tanggal:</strong> <?php echo $row['tanggal']; ?></p>
                        <p><strong>Waktu:</strong> <?php echo $row['waktu']; ?></p>
                        <p><strong>Tempat:</strong> <?php echo $row['tempat']; ?></p>
-                       <a href="TrainingAdmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-edit"><img src="../Assets/edit.png" alt="edit"></a>
+                       <a href="trainingadmin.php?edit=<?php echo $row['id_jadwal']; ?>" class="btn-edit"><img src="../Assets/edit.png" alt="edit"></a>
                        <a href="detailadmin.php?id_jadwal=<?php echo $row['id_jadwal']; ?>" class="btn-detail">Detail Latihan</a>
-                       <a href="TrainingAdmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
+                       <a href="trainingadmin.php?delete=<?php echo $row['id_jadwal']; ?>" class="btn-hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
 
                    </div>
                </div>
@@ -416,7 +417,7 @@ if (isset($_GET['delete'])) {
         <div class="modal-content">
             <h1>Form Menambah Jadwal Latihan</h1>
             <span class="close">&times;</span>
-            <form action="TrainingAdmin.php" method="post" enctype="multipart/form-data">
+            <form action="trainingadmin.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <label for="nama_latihan">Nama Latihan:</label>
                 <input type="text" name="nama_latihan" value="<?php echo $nama_latihan; ?>" required><br>
