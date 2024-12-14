@@ -3,7 +3,7 @@ session_start();
 
 // Pastikan pengguna sudah login
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: logout.php");
     exit;
 }
 

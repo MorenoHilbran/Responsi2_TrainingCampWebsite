@@ -62,7 +62,7 @@
             <li><a href="../view/home2.php">Home</a></li>
             <li><a href="../view/training2.php">Training</a></li>
             <li><a href="../view/teamprofile2.php" class="active">Team Profile</a></li>
-            <li><a href="login.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
+            <li><a href="../view/profile.php" class="iconprofile"><img src="../Assets/profile.png" alt="Profile Icon"></a></li>
         </ul>
     </header>
 
