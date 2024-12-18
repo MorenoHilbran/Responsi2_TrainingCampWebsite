@@ -17,6 +17,7 @@ Aplikasi berbasis Website untuk melihat Jadwal Latihan yang tersedia dan mengelo
 - CSS
 - JS
 - MySQL
+- Figma
 
 ## ⚙️ Prasyarat
 
