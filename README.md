@@ -23,7 +23,7 @@ Aplikasi berbasis Website untuk melihat Jadwal Latihan yang tersedia dan mengelo
 
 Sebelum menjalankan aplikasi ini, pastikan Anda telah menginstall:
 
-- Android Studio/Visual Studio code
+- Visual Studio code
 - memasukkan database kedalam SQL
 - menjalankan localhost
 
